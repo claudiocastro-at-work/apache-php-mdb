@@ -1,0 +1,74 @@
+# Versão da sintaxe do arquivo Compose usado para definir e configurar os serviços do Docker
+version: '2.14'
+
+services:
+  db:
+    # Nome do contêiner do serviço de banco de dados
+    container_name: vhostmdb
+
+    # Imagem usada para o contêiner do MariaDB
+    image: mariadb:latest
+
+    # Reiniciar o contêiner sempre que ocorrer um reinício do Docker
+    restart: always
+
+    # Mapeamento de portas do host para o contêiner do MariaDB
+    ports:
+      - '3306:3306'
+
+    # Variável de ambiente para configurar a senha de root do MySQL
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+  php:
+    # Define a construção de uma imagem personalizada a partir de um Dockerfile
+    build:
+
+      # Rede usada pelo contêiner
+      network: host
+
+      # Caminho do contexto de construção do Dockerfile
+      context: .
+
+      # Dockerfile usado para construir o contêiner PHP-FPM
+      dockerfile: Dockerfile
+
+    # Nome do contêiner do serviço PHP-FPM
+    container_name: vhostphpfpm
+
+    # Mapeamento de portas do host para o contêiner PHP-FPM
+    ports:
+      - 9000:9000
+
+    # Volumes montados no contêiner PHP-FPM
+    volumes:
+      - ./:/app
+      - ../_docker/config/99-xdebug.ini:/opt/bitnami/php/etc/conf.d/99-xdebug.ini
+      - ../_docker/config/opcache.ini:/opt/bitnami/php/etc/conf.d/opcache.ini
+
+    # Links para outros contêineres
+    links:
+      - db
+
+  apache:
+
+    # Nome do contêiner do servidor Apache
+    container_name: vhostapache
+
+    # Imagem usada para o contêiner do Apache
+    image: bitnami/apache:latest
+
+    # Mapeamento de portas do host para o contêiner do Apache
+    ports:
+      - "80:8080"
+      - "443:8443"
+
+    # Volumes montados no contêiner do Apache
+    volumes:
+      - ./:/app
+      - ../_docker/certs:/certs
+      - ../_docker/vhosts/dev.environment.conf:/vhosts/dev.environment.conf:ro
+
+    # Dependência do contêiner do PHP-FPM
+    depends_on:
+      - php
