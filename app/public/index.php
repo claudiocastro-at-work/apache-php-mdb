@@ -1,7 +1,7 @@
 <?php
 
 # Inclui o arquivo autoload.php necessário para carregar automaticamente as classes do projeto
-require __DIR__ . "../../vendor/autoload.php";
+// require __DIR__ . "../../vendor/autoload.php";
 
 ## [TESTES]
 

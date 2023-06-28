@@ -2,6 +2,7 @@
 
 Este é um projeto dockerizado que utiliza os serviços do MariaDB, PHP-FPM e Apache para criar um ambiente de desenvolvimento web. O projeto possui a seguinte estrutura:
 
+```
 .
 ├── _docker/
 │ ├── certs/
@@ -20,6 +21,7 @@ Este é um projeto dockerizado que utiliza os serviços do MariaDB, PHP-FPM e Ap
   ├── composer.json
   ├── docker-compose.yml
   └── Dockerfile
+```
 
 ## Pré-requisitos
 
