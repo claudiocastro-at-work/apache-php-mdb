@@ -44,6 +44,7 @@ services:
     volumes:
       - ./:/app
       - ../_docker/config/99-xdebug.ini:/opt/bitnami/php/etc/conf.d/99-xdebug.ini
+      - ../_docker/config/errors.ini:/opt/bitnami/php/etc/conf.d/errors.ini
       - ../_docker/config/opcache.ini:/opt/bitnami/php/etc/conf.d/opcache.ini
 
     # Links para outros contêineres
