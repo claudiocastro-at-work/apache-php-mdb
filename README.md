@@ -64,7 +64,7 @@ O serviço do Apache está configurado no arquivo `docker-compose.yml` com as se
 - Volumes montados:
   - Diretório local do projeto: `/app`
   - Diretório de certificados SSL/TLS: `/certs`
-  - Arquivo de configuração do ambiente de desenvolvimento: `/vhosts/dev.environment.conf`
+  - Arquivo de configuração do ambiente de desenvolvimento: `/vhosts/server.local.conf`
 
 ## Estrutura do Projeto
 
