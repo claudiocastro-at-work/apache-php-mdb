@@ -1,4 +1,4 @@
 _bak/
-/_docker/certs/server.crt
-/_docker/certs/server.key
-/app/.dockerignore
+_docker/certs/server.crt
+_docker/certs/server.key
+app/.dockerignore
