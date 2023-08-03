@@ -92,7 +92,7 @@ O serviço do Apache está configurado no arquivo `docker-compose.yml` com as se
  - Clique em "Autoridades de Certificação Raiz Confiáveis" no painel esquerdo.
  - Clique com o botão direito do mouse em "Certificados" e selecione "Todas as tarefas" e depois "Importar".
  - Selecione "Máquina Local" e clique em "Avançar".
- - Procure pelo arquivo gerado chamado "server.local.crt" e siga as etapas restantes até concluir a importação.
+ - Procure o arquivo gerado pelo MKCert renomeado para "server.crt" e siga as etapas restantes até concluir a importação.
  - Adicione a linha `127.0.0.1 server.local` ao arquivo de hosts do seu sistema. Você pode encontrá-lo em `Windows\System32\drivers\etc\hosts`. Utilize o Bloco de Notas para fazer essa modificação.
 
 ## Executando o Projeto
