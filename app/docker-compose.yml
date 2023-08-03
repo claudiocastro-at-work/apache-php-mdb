@@ -3,8 +3,8 @@ version: '2.14'
 
 services:
   db:
-    # Nome do contêiner do serviço de banco de dados
-    container_name: vhostmdb
+    # Nome personalizado do contêiner do serviço de banco de dados
+    container_name: servermdb
 
     # Imagem usada para o contêiner do MariaDB
     image: mariadb:latest
@@ -33,8 +33,8 @@ services:
       # Dockerfile usado para construir o contêiner PHP-FPM
       dockerfile: Dockerfile
 
-    # Nome do contêiner do serviço PHP-FPM
-    container_name: vhostphpfpm
+    # Nome personalizado do contêiner do serviço PHP-FPM
+    container_name: serverphpfpm
 
     # Mapeamento de portas do host para o contêiner PHP-FPM
     ports:
@@ -53,8 +53,8 @@ services:
 
   apache:
 
-    # Nome do contêiner do servidor Apache
-    container_name: vhostapache
+    # Nome personalizado do contêiner do servidor Apache
+    container_name: serverapache
 
     # Imagem usada para o contêiner do Apache
     image: bitnami/apache:latest
@@ -68,7 +68,7 @@ services:
     volumes:
       - ./:/app
       - ../_docker/certs:/certs
-      - ../_docker/vhosts/dev.environment.conf:/vhosts/dev.environment.conf:ro
+      - ../_docker/vhosts/server.local.conf:/vhosts/server.local.conf:ro
 
     # Dependência do contêiner do PHP-FPM
     depends_on:

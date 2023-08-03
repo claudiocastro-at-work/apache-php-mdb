@@ -1,5 +1,4 @@
 _bak/
-/_docker/certs/server.crt
-/_docker/certs/server.key
-/app/vendor
+/_docker/certs/server.local.crt
+/_docker/certs/server.local.key
 /app/.dockerignore

@@ -48,7 +48,7 @@ $dbname = "myserver";
 //     echo "Falha na conexão: " . $e->getMessage();
 // }
 
-# TESTAR 'ESTRUTURA' XDEBUG NO NAVEGADOR
+# TESTAR 'COMPOSIÇÃO VISUAL' XDEBUG NO NAVEGADOR
 
 // $name = ["name" => "John"];
 // var_dump($name);

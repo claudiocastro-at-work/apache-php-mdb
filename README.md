@@ -6,16 +6,16 @@ Este é um projeto dockerizado que utiliza os serviços do MariaDB, PHP-FPM e Ap
 .
 ├── _docker/
 │ ├── certs/
-│ │ ├── server.crt
-│ │ └── server.key
+│ │ ├── server.local.crt
+│ │ └── server.local.key
 │ ├── config/
 │ │ ├── 99-xdebug.ini
+| | |── errors.ini 
 │ │ └── opcache.ini
 │ └── vhosts/
-│   └── dev.environment.conf
+│   └── server.local.conf
 └── app/
-  ├── public/
-  │ └── index.php
+  ├── index.php
   ├── source/
   ├── .htaccess
   ├── composer.json
@@ -30,12 +30,13 @@ Certifique-se de ter os seguintes requisitos em seu sistema:
 - Docker
 - Docker Compose
 - WSL2 (Windows Subsystem for Linux 2)
+- Git
 
 ### Configuração do Banco de Dados
 
 O serviço do MariaDB está configurado no arquivo `docker-compose.yml` com as seguintes informações:
 
-- Nome do contêiner: vhostmdb
+- Nome do contêiner: servermdb
 - Imagem utilizada: mariadb:latest
 - Porta mapeada: 3306
 - Senha de root do MySQL: root
@@ -44,12 +45,13 @@ O serviço do MariaDB está configurado no arquivo `docker-compose.yml` com as s
 
 O serviço do PHP-FPM está configurado no arquivo `docker-compose.yml` com as seguintes informações:
 
-- Nome do contêiner: vhostphpfpm
+- Nome do contêiner: serverphpfpm
 - Imagem utilizada: bitnami/php-fpm:latest
 - Porta mapeada: 9000
 - Volumes montados:
   - Diretório local do projeto: `/app`
   - Arquivo de configuração do Xdebug: `/opt/bitnami/php/etc/conf.d/99-xdebug.ini`
+  - Arquivo de configuração do Display: `/opt/bitnami/php/etc/conf.d/errors.ini`
   - Arquivo de configuração do Opcache: `/opt/bitnami/php/etc/conf.d/opcache.ini`
 
 ### Configuração do Apache
@@ -78,7 +80,7 @@ O serviço do Apache está configurado no arquivo `docker-compose.yml` com as se
 
 - O uso da opção `network: host` no arquivo `docker-compose.yml` é importante para corrigir a falha temporária de conexão com o repositório `deb.debian.org`.
 
-- Os arquivos de autoridade SSL precisam ser gerados (recomenda-se usar o MKcerts) e renomeados conforme a estrutura especificada. Além disso, é necessário incluí-los nos "Certificados Autorizados" do Windows. Para essa inclusão siga as instruções abaixo:
+- Os arquivos de autoridade SSL precisam ser gerados (recomenda-se usar o MKcerts) e renomeados conforme a estrutura especificada (server.crt e server.key). Caso algum erro SSL seja reportado, será necessário incluí-los nos "Certificados Autorizados" do Windows, para isso siga as instruções abaixo:
 
  - Pressione as teclas "Windows+R" para abrir a caixa de diálogo "Executar".
  - Digite "MMC" e pressione "OK".
@@ -90,9 +92,8 @@ O serviço do Apache está configurado no arquivo `docker-compose.yml` com as se
  - Clique em "Autoridades de Certificação Raiz Confiáveis" no painel esquerdo.
  - Clique com o botão direito do mouse em "Certificados" e selecione "Todas as tarefas" e depois "Importar".
  - Selecione "Máquina Local" e clique em "Avançar".
- - Procure pelo arquivo gerado chamado "server.crt" e siga as etapas restantes até concluir a importação.
-
-- Adicione a linha `127.0.0.1 dev.environment` ao arquivo de hosts do seu sistema. Você pode encontrá-lo em `Windows\System32\drivers\etc\hosts`. Utilize o Bloco de Notas para fazer essa modificação.
+ - Procure pelo arquivo gerado chamado "server.local.crt" e siga as etapas restantes até concluir a importação.
+ - Adicione a linha `127.0.0.1 server.local` ao arquivo de hosts do seu sistema. Você pode encontrá-lo em `Windows\System32\drivers\etc\hosts`. Utilize o Bloco de Notas para fazer essa modificação.
 
 ## Executando o Projeto
 
@@ -102,5 +103,5 @@ Para executar o projeto, siga as etapas a seguir:
 2. Clone este repositório em sua máquina local.
 3. Navegue até o diretório do projeto no terminal (/app).
 4. Execute o comando `docker-compose up -d` para iniciar os serviços do Docker.
-5. O ambiente estará acessível em `https://dev.environment` no navegador.
+5. O ambiente estará acessível em `https://server.local` no navegador.
 6. Ppara instalar as dependências do Composer: `docker-compose exec -it composer update`.

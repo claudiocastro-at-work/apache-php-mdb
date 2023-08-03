@@ -22,6 +22,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     # Verifica se o diretório não existe
     RewriteCond %{REQUEST_FILENAME} !-d
-    # Encaminha a requisição para public/index.php com os parâmetros da URL
-    RewriteRule ^ public/index.php [QSA,L]
+    # Encaminha a requisição para index.php com os parâmetros da URL
+    RewriteRule ^ index.php [QSA,L]
 </IfModule>
