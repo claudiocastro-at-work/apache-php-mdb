@@ -58,7 +58,7 @@ O serviço do PHP-FPM está configurado no arquivo `docker-compose.yml` com as s
 
 O serviço do Apache está configurado no arquivo `docker-compose.yml` com as seguintes informações:
 
-- Nome do contêiner: vhostapache
+- Nome do contêiner: serverapache
 - Imagem utilizada: bitnami/apache:latest
 - Portas mapeadas: 80 (HTTP) e 443 (HTTPS)
 - Volumes montados:
@@ -69,7 +69,7 @@ O serviço do Apache está configurado no arquivo `docker-compose.yml` com as se
 ## Estrutura do Projeto
 
 - O código-fonte do projeto está localizado na pasta `app/`.
-- O arquivo `app/public/index.php` é o ponto de entrada da aplicação.
+- O arquivo `app/index.php` é o ponto de entrada da aplicação.
 - Os arquivos de configuração do ambiente Docker estão localizados na pasta `_docker/`.
 - O arquivo `Dockerfile` contém as instruções para construir a imagem do PHP-FPM.
 - O arquivo `docker-compose.yml` define os serviços e configurações do ambiente Docker.
